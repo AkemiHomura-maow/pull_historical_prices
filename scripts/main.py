@@ -46,6 +46,7 @@ def fetch_rates_with_retry(start_i, end_i, src, conn, dst_local, blk, initial_ch
             else:
                 # Reduce the chunk size and try again
                 chunk_size = max(1, chunk_size // 2)
+            time.sleep(10)
 
 def run(blk):
     call_length = 150
@@ -106,6 +107,8 @@ out = {}
 for hour, ps in zip(hours, results):
     if ps:
         out[hour] = ps
+
+breakpoint()
 
 if chain_name == 'op':  
     pd.DataFrame(out).T.to_csv('op_prices_1723784400.csv')
